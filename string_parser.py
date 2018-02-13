@@ -53,7 +53,7 @@ def sanitize_input(x):
     return s.lower()
 
 
-#checks the db for a phrase
+#checks the db for a phrase and updates
 def update_db(phrase):
     if db.phrasebucket.find({'phrase': phrase}).count() > 0:
         db.phrasebucket.update(
@@ -70,14 +70,6 @@ def update_db(phrase):
             }
         )
 
-
-#adds a phrase to the db
-def add_word(word):
-    db.wordbucket.insert(
-        {'word': word,
-         'nextWords': {}
-        }
-    )
 
 
 try:
