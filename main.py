@@ -1,7 +1,7 @@
-from bucket_filler import commentParser
+from string_parser import stringParser
 
 try:
     while True:
-        commentParser()
+        stringParser()
 except KeyboardInterrupt:
     pass

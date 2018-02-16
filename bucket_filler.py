@@ -1,7 +1,25 @@
+'''''''''''''''''''''''''''''''''''''''''''''
+Word Counter by Alex Hildreth
+v0.3
+Using the PRAW Reddit API wrapper and MongoDB,
+this script pulls comments from the Reddit
+/all stream and parses all individual words,
+storing them in a DB document that contains
+a map of all other words that have come after 
+the word, along with a count of how many times
+the next word has occured.
+
+This data may be used in conjuction with data
+from string_parser.py to identify memes or
+phrases.
+
+MongoDB note - the database should have an
+ascending index on the "word" field
+'''''''''''''''''''''''''''''''''''''''''''''
+
 import pymongo
 from pymongo import *
 import praw
-import json
 import re
 from secrets import LoginInfo
 
@@ -30,8 +48,8 @@ def commentParser():
         
         position = 0
         for word in comment_body: 
-            if not check_db(word):
-                add_word(word) #add current word to main dict if not already in there
+            if not check_db(word): #add current word to main dict if not already in there
+                add_word(word) 
         
             if position < len(comment_body) - 1: #if not last word in comment, add/update next word in database
                 update_next(word, comment_body[position+1])
